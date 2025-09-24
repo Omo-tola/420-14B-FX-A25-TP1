@@ -9,7 +9,7 @@ namespace _420_14B_FX_A25_TP1.classes
     public class Adoptant
     {
         public const string VALEUR_CHAMP_VIDE = "Inconnu";
-        public const byte NO_TELEPHONE_NB_CARACTERES_MIN = 10;
+        public const byte NO_TELEPHONE_NB_CARACTERES_MIN = 12;
         public const char NO_TELEPHONE_CARACT_SEPARATION = '-';
         public const char COURRIEL_CARACT_REQUIS = '@';
 
@@ -92,7 +92,7 @@ namespace _420_14B_FX_A25_TP1.classes
             get { return _courriel; }
             set
             {
-                while(value.Contains("@"))
+                while(value.Contains(COURRIEL_CARACT_REQUIS))
                 {
                     _courriel = value;
 
