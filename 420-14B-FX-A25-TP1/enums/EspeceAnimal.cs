@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _420_14B_FX_A25_TP1
+namespace _420_14B_FX_A25_TP1.enums
 {
     public enum EspeceAnimal
     {

@@ -1,17 +1,17 @@
-﻿using _420_14B_FX_A25_TP1.classes;
+﻿using _420_14B_FX_A25_TP1.enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _420_14B_FX_A25_TP1
+namespace _420_14B_FX_A25_TP1.classes
 {
     public class Animal
     {
         public const string VALEUR_CHAMP_VIDE = "Inconnu";
         private Adoptant _adoptant;
-        private DateOnly _dateAdoption;
+        private DateOnly? _dateAdoption;
         private DateOnly _dateArrivee;
         private DateOnly _dateNaissance;
         private string _description;
@@ -29,7 +29,7 @@ namespace _420_14B_FX_A25_TP1
                 _adoptant = value;
             }
         }
-        private DateOnly DateAdoption
+        private DateOnly? DateAdoption
         {
             get { return _dateAdoption; }
             set
@@ -42,7 +42,12 @@ namespace _420_14B_FX_A25_TP1
             get { return _dateArrivee; }
             set
             {
-                _dateArrivee = value;
+                DateOnly aujoudhui = DateOnly.FromDateTime(DateTime.Now);
+                if(value < aujoudhui)
+                {
+                    aujoudhui = value;
+
+                }
             }
         }
         private DateOnly DateNaissance
@@ -65,6 +70,14 @@ namespace _420_14B_FX_A25_TP1
                 _description = value;
             }
         }
+        private EspeceAnimal Espece
+        {
+            get { return _espece; }
+            set
+            {
+                _espece = value;
+            }
+        }
         private uint Id
         {
             get { return _id; }
@@ -81,7 +94,10 @@ namespace _420_14B_FX_A25_TP1
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     value = VALEUR_CHAMP_VIDE;
+
                 }
+                _nom = value;
+
             }
         }
         private float Poids
@@ -93,6 +109,8 @@ namespace _420_14B_FX_A25_TP1
                 {
                     value = 1;
                 }
+
+                _poids = value;
             }
         }
         private decimal Prix
@@ -108,8 +126,27 @@ namespace _420_14B_FX_A25_TP1
             get
             {
                 DateOnly aujourdhui = DateOnly.FromDateTime(DateTime.Now);
-                return (aujourdhui-DateNaissance);
+                DateOnly age = DateOnly.FromDateTime(DateTime.Now);
+                return 0;
             }
+        }
+        public Animal (uint id, string nom, EspeceAnimal espece, DateOnly dateNaissance, float poids, decimal prix, string description, DateOnly dateArrivee, Adoptant adoptant, DateOnly? dateAdoption)
+        {
+            Id = id;
+            Nom = nom;
+            Espece = espece;
+            DateNaissance = dateNaissance;
+            Poids = poids;
+            Prix = prix;
+
+            Adoptant = adoptant;
+            DateAdoption = dateAdoption;
+            DateArrivee = dateArrivee;
+            Description = description;
+        }
+        public override string ToString()
+        {
+            return ($"{Id},{Nom},{Espece},{DateNaissance},{Poids},{Prix},{Description},{DateArrivee},{Adoptant},{DateAdoption}");
         }
     }
 }

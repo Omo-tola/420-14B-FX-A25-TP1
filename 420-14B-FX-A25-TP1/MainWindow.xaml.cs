@@ -1,5 +1,5 @@
 ﻿using _420_14B_FX_A25_TP1.classes;
-
+using _420_14B_FX_A25_TP1.enums;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,18 +33,30 @@ namespace _420_14B_FX_A25_TP1
             string cheminFichierAnimaux = AppContext.BaseDirectory + "data\\animaux.csv";
 
             //instancier le gestionnaire d'adoption ici
+            _gestionAdoption = new GestionAdoption(cheminFichierAdoptants,cheminFichierAnimaux);
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            ChargerEspeceAnimal();
+            AfficherLstAdoptant();
         }
-        private void ChargerEspeceAnimal ()
+        public void ChargerEspeceAnimal ()
         {
             string[] especeAnimal = Enum.GetNames(typeof(EspeceAnimal));
             for (int i = 0; i < especeAnimal.Length; i++)
             {
                 cboFiltreEspeceAnimal.Items.Add(especeAnimal[i]);
+                cboEspece.Items.Add(especeAnimal[i]);
+            }
+        }
+        public void AfficherLstAdoptant()
+        {
+            lstAnimaux.Items.Clear();
+            for(int i=0;i< _gestionAdoption.Animaux.Length;i++)
+            {
+                  lstAnimaux.Items.Add(_gestionAdoption.Animaux[i]);
             }
         }
 

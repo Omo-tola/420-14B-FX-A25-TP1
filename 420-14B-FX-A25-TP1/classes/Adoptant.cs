@@ -45,6 +45,8 @@ namespace _420_14B_FX_A25_TP1.classes
                 {
                     value = VALEUR_CHAMP_VIDE;
                 }
+
+                _nom = value;
             }
         }
 
@@ -61,6 +63,8 @@ namespace _420_14B_FX_A25_TP1.classes
                 {
                     value = VALEUR_CHAMP_VIDE;
                 }
+
+                _prenom = value;
             }
         }
 
@@ -92,11 +96,13 @@ namespace _420_14B_FX_A25_TP1.classes
             get { return _courriel; }
             set
             {
-                while(value.Contains(COURRIEL_CARACT_REQUIS))
-                {
-                    _courriel = value;
+                //while(value.Contains(COURRIEL_CARACT_REQUIS))
+                //{
+                //    _courriel = value;
 
-                }
+                //}
+                _courriel = value;
+
             }
         }
 
@@ -111,10 +117,11 @@ namespace _420_14B_FX_A25_TP1.classes
      /// <param name="courriel">Courriel de l'adoptant</param>
         public Adoptant(uint id, string nom, string prenom, string telephone, string courriel)
         {
-            nom = Nom;
-            prenom = Prenom;
-            telephone = Telephone;
-            courriel = Courriel;
+            Id = id;
+            Nom = nom;
+            Prenom = prenom;
+            Telephone = telephone;
+            Courriel = courriel;
         }
 
   
@@ -126,6 +133,8 @@ namespace _420_14B_FX_A25_TP1.classes
         {
             return $"{Id},{Nom},{Prenom},{Telephone},{Courriel}";
         }
+
+
     }
 
 }
