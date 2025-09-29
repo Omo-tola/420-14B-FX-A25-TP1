@@ -21,7 +21,7 @@ namespace _420_14B_FX_A25_TP1.classes
         private float _poids;
         private decimal _prix;
          
-        private Adoptant Adoptant
+        public Adoptant Adoptant
         {
             get { return _adoptant; }
             set
@@ -29,7 +29,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 _adoptant = value;
             }
         }
-        private DateOnly? DateAdoption
+        public DateOnly? DateAdoption
         {
             get { return _dateAdoption; }
             set
@@ -37,7 +37,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 _dateAdoption = value;
             }
         }
-        private DateOnly DateArrivee
+        public DateOnly DateArrivee
         {
             get { return _dateArrivee; }
             set
@@ -50,7 +50,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 }
             }
         }
-        private DateOnly DateNaissance
+        public DateOnly DateNaissance
         {
             get { return _dateNaissance; }
             set
@@ -62,7 +62,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 }
             }
         }
-        private string Description
+        public string Description
         {
             get { return _description; }
             set
@@ -70,7 +70,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 _description = value;
             }
         }
-        private EspeceAnimal Espece
+        public EspeceAnimal Espece
         {
             get { return _espece; }
             set
@@ -78,7 +78,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 _espece = value;
             }
         }
-        private uint Id
+        public uint Id
         {
             get { return _id; }
             set
@@ -86,7 +86,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 _id = value;
             }
         }
-        private string Nom
+        public string Nom
         {
             get { return _nom; }
             set
@@ -100,7 +100,7 @@ namespace _420_14B_FX_A25_TP1.classes
 
             }
         }
-        private float Poids
+        public float Poids
         {
             get { return _poids; }
             set
@@ -113,7 +113,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 _poids = value;
             }
         }
-        private decimal Prix
+        public decimal Prix
         {
             get { return _prix; }
             set
@@ -121,7 +121,7 @@ namespace _420_14B_FX_A25_TP1.classes
                 _prix = value;
             }
         }
-        private byte Age
+        public byte Age
         {
             get
             {
@@ -148,5 +148,6 @@ namespace _420_14B_FX_A25_TP1.classes
         {
             return ($"{Id},{Nom},{Espece},{DateNaissance},{Poids},{Prix},{Description},{DateArrivee},{Adoptant},{DateAdoption}");
         }
+
     }
 }

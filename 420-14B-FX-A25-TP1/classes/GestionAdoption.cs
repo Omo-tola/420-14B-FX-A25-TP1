@@ -1,7 +1,4 @@
 ﻿using _420_14B_FX_A25_TP1.enums;
-using System.IO;
-using System.Net;
-using System.Windows.Navigation;
 
 
 namespace _420_14B_FX_A25_TP1.classes
@@ -122,13 +119,135 @@ namespace _420_14B_FX_A25_TP1.classes
 
 
         }
-		private Animal[] AjouterAnimal (Animal animal, Animal[] animaux)
+        private Animal[] AjouterAnimal(Animal animal, Animal[] animaux)
+        {
+			Animal[] anim = new Animal[animaux.Length + 1];
+
+            for (int i = 0; i < anim.Length; i++)
+            {
+				anim[i] = animaux[i];
+            }
+            anim[anim.Length-1] = animal;
+
+            return anim;
+        }
+		public Animal [] RechercherAnimaux(string nom = null ,EspeceAnimal? espece =null, bool? disponible = null)
 		{
+			Animal[] animaux = new Animal[0];
+
 			for(int i = 0;i< Animaux.Length;i++)
 			{
-				Animaux[i].
-			}
-		}
+                bool contient = false;
 
-	}
+                if (Animaux[i].Nom.Contains(nom) )
+				{
+					contient = true;
+				}
+				if( Animaux[i].Espece == espece )
+				{
+                    contient = true;
+
+                }
+                if (Animaux[i].Adoptant == null)
+				{
+                    contient = true;
+
+                }
+                AjouterAnimal(Animaux[i], animaux);
+
+            }
+            return animaux;
+        }
+
+        public void AjouterAdoptant(Adoptant adoptant)
+		{
+			Adoptant[] adop = new Adoptant[Adoptants.Length + 1];
+			for(int i =0; i< adop.Length;i++)
+			{
+				adop[i] = Adoptants[i];
+			}
+			adop[Adoptants.Length - 1] = adoptant;
+			
+		}
+		private Animal TrouverAnimalParId(uint idAnimal)
+		{
+			for(int i = 0; i<Animaux.Length;i++)
+			{
+				if (Animaux[i].Id==idAnimal)
+				{
+					return Animaux[i];
+				}
+			}
+			return null;
+		}
+        public bool AdopterAnimal(uint idAnimal, uint idAdoptant)
+		{
+			Adoptant adoptant= TrouverAdoptantParId(idAdoptant);
+			Animal animal= TrouverAnimalParId(idAnimal); ;
+			if (adoptant != null && animal != null)
+			{
+				if (animal.Adoptant == null)
+				{
+                    DateOnly aujoudhui = DateOnly.FromDateTime(DateTime.Now);
+
+                    animal.Adoptant = adoptant;
+					animal.DateAdoption = aujoudhui;
+				}
+			}   	
+			return false;
+		}
+        private uint CompterAnimauxParStatut(bool adoptes)
+		{
+			uint total = 0;
+			if(adoptes==true)
+			{
+
+                for (int i=0;i<Animaux.Length;i++)
+			    {
+					if (Animaux[i].Adoptant != null)
+					{
+						total++;
+					}
+				}
+			}
+
+			if(adoptes == false)
+			{
+
+                for (int i = 0; i < Animaux.Length; i++)
+                {
+                    if (Animaux[i].Adoptant == null)
+                    {
+						total++;
+                    }
+                }
+            }
+			
+			return total;
+		}
+        public int CompterAnimauxDisponiblesParEspece(EspeceAnimal espece)
+		{
+			int total = 0;
+			for(int i=0;i<Animaux.Length;i++)
+			{
+				if (Animaux[i].Espece == espece)
+					total++;
+			}
+			return total;
+		}
+        public decimal CalculerPrixMoyenAdoption()
+		{
+			decimal prixTotal = 0;
+
+			for(int i =0;i<Animaux.Length;i++)
+			{
+				if(Animaux[i].Adoptant!=null)
+				{
+					prixTotal += Animaux[i].Prix;
+				}
+			}
+			uint nb = CompterAnimauxParStatut(true);
+			return prixTotal / nb;
+		}
+    }
 }
