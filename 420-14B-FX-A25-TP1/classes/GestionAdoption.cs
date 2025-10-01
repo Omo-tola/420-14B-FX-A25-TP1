@@ -119,13 +119,104 @@ namespace _420_14B_FX_A25_TP1.classes
 
 
         }
-		private Animal[] AjouterAnimal (Animal animal, Animal[] animaux)
+        private Animal[] AjouterAnimal(Animal animal, Animal[] animaux)
+        {
+			Animal[] anim = new Animal[animaux.Length + 1];
+
+            for (int i = 0; i < anim.Length; i++)
+            {
+				anim[i] = animaux[i];
+            }
+            anim[anim.Length-1] = animal;
+
+            return anim;
+        }
+		public Animal [] RechercherAnimaux(string nom = null ,EspeceAnimal? espece =null, bool? disponible = null)
 		{
+			Animal[] animaux = new Animal[0];
+
 			for(int i = 0;i< Animaux.Length;i++)
 			{
-				Animaux[i].
-			}
-		}
+                bool contient = false;
 
-	}
+                if (Animaux[i].Nom.Contains(nom) )
+				{
+					contient = true;
+				}
+				if( Animaux[i].Espece == espece )
+				{
+                    contient = true;
+
+                }
+                if (Animaux[i].Adoptant == null)
+				{
+                    contient = true;
+
+                }
+                AjouterAnimal(Animaux[i], animaux);
+
+            }
+            return animaux;
+        }
+
+        public void AjouterAdoptant(Adoptant adoptant)
+		{
+			Adoptant[] adop = new Adoptant[Adoptants.Length + 1];
+			for(int i =0; i< adop.Length;i++)
+			{
+				adop[i] = Adoptants[i];
+			}
+			adop[Adoptants.Length - 1] = adoptant;
+			
+		}
+		private Animal TrouverAnimalParId(uint idAnimal)
+		{
+			for(int i = 0; i<Animaux.Length;i++)
+			{
+				if (Animaux[i].Id==idAnimal)
+				{
+					return Animaux[i];
+				}
+			}
+			return null;
+		}
+        public bool AdopterAnimal(uint idAnimal, uint idAdoptant)
+		{
+			Adoptant adoptant= TrouverAdoptantParId(idAdoptant);
+			Animal animal= TrouverAnimalParId(idAnimal); ;
+			if (adoptant != null && animal != null)
+			{
+				if (animal.Adoptant == null)
+				{
+					animal.Adoptant = adoptant;
+					animal.DateAdoption=
+				}
+			}   	
+			return false;
+		}
+        private uint CompterAnimauxParStatut(bool adoptes)
+		{
+			uint total = 0;
+			for(int i = 0;i<Animaux.Length;i++)
+			{
+				if (Animaux[i].Adoptant==null)
+				{
+
+				}
+			}
+			return total;
+		}
+        public int CompterAnimauxDisponiblesParEspece(EspeceAnimal espece)
+		{
+			for(int i=0;i<Animaux.Length;i++)
+			{
+				Animaux[i].Espece = "";
+			}
+			return 0;
+		}
+        public decimal CalculerPrixMoyenAdoption()
+		{
+
+		}
+    }
 }
