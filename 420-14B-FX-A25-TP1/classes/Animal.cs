@@ -118,6 +118,10 @@ namespace _420_14B_FX_A25_TP1.classes
             get { return _prix; }
             set
             {
+                if(value <0)
+                {
+                    value = 1;
+                }
                 _prix = value;
             }
         }
@@ -126,8 +130,11 @@ namespace _420_14B_FX_A25_TP1.classes
             get
             {
                 DateOnly aujourdhui = DateOnly.FromDateTime(DateTime.Now);
-                DateOnly age = DateOnly.FromDateTime(DateTime.Now);
-                return 0;
+              
+                int age = aujourdhui.Year - DateNaissance.Year;
+                byte ageByte = (byte)age;
+
+                return ageByte;
             }
         }
         public Animal (uint id, string nom, EspeceAnimal espece, DateOnly dateNaissance, float poids, decimal prix, string description, DateOnly dateArrivee, Adoptant adoptant, DateOnly? dateAdoption)
@@ -138,7 +145,6 @@ namespace _420_14B_FX_A25_TP1.classes
             DateNaissance = dateNaissance;
             Poids = poids;
             Prix = prix;
-
             Adoptant = adoptant;
             DateAdoption = dateAdoption;
             DateArrivee = dateArrivee;
@@ -146,8 +152,28 @@ namespace _420_14B_FX_A25_TP1.classes
         }
         public override string ToString()
         {
-            return ($"{Id},{Nom},{Espece},{DateNaissance},{Poids},{Prix},{Description},{DateArrivee},{Adoptant},{DateAdoption}");
-        }
+            string adoptantInfo  ;
+            string statut;
 
+            if (Adoptant != null)
+            {
+                adoptantInfo=$"{Adoptant.Nom} {Adoptant.Prenom}" ;
+                statut = "Adopté";
+            }
+            else
+            {
+                adoptantInfo = "";
+                statut = "Disponible";
+
+            }
+
+
+
+            return $"{Nom,-20}{Espece,-15}{Age + "(s)",-10} {Poids + "kg",-10} {statut,-15} {adoptantInfo,-30} ";
+
+
+
+        }
+        
     }
 }

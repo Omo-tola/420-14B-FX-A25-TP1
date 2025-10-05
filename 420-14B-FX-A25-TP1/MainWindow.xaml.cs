@@ -25,7 +25,7 @@ namespace _420_14B_FX_A25_TP1
 
         private GestionAdoption _gestionAdoption;
 
-        public MainWindow ()
+        public MainWindow()
         {
             InitializeComponent();
 
@@ -33,7 +33,7 @@ namespace _420_14B_FX_A25_TP1
             string cheminFichierAnimaux = AppContext.BaseDirectory + "data\\animaux.csv";
 
             //instancier le gestionnaire d'adoption ici
-            _gestionAdoption = new GestionAdoption(cheminFichierAdoptants,cheminFichierAnimaux);
+            _gestionAdoption = new GestionAdoption(cheminFichierAdoptants, cheminFichierAnimaux);
 
         }
 
@@ -42,7 +42,7 @@ namespace _420_14B_FX_A25_TP1
             ChargerEspeceAnimal();
             AfficherLstAdoptant();
         }
-        public void ChargerEspeceAnimal ()
+        public void ChargerEspeceAnimal()
         {
             string[] especeAnimal = Enum.GetNames(typeof(EspeceAnimal));
             for (int i = 0; i < especeAnimal.Length; i++)
@@ -54,12 +54,78 @@ namespace _420_14B_FX_A25_TP1
         public void AfficherLstAdoptant()
         {
             lstAnimaux.Items.Clear();
-            for(int i=0;i< _gestionAdoption.Animaux.Length;i++)
+            for (int i = 0; i < _gestionAdoption.Animaux.Length; i++)
             {
-                  lstAnimaux.Items.Add(_gestionAdoption.Animaux[i]);
+                lstAnimaux.Items.Add(_gestionAdoption.Animaux[i]);
             }
         }
-        
-    }
-        
+
+
+        private void btnSauvegarder_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ValiderFormulaire()
+        {
+
+        }
+
+        private void lstAnimaux_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Animal animal = (Animal)lstAnimaux.SelectedItem;
+            if(animal != null)
+            {
+                txtNom.Text = animal.Nom;
+                if (animal.Nom != null)
+                {
+                    cboEspece.SelectedItem = animal.Espece;
+
+                }
+                dpDateNaissance.Text = animal.DateNaissance.ToString();
+                txtPoids.Text = animal.Poids.ToString();
+                txtPrix.Text = animal.Prix.ToString();
+                if(animal.Adoptant==null)
+                {
+                    cboStatut.SelectedIndex = 0;
+                    
+                }
+                else
+                {
+                    cboStatut.SelectedIndex = 1;
+
+                }
+
+                if (animal.Adoptant!= null)
+                {
+                    txtNomAdoptant.Text = animal.Adoptant.Nom;
+                    txtPrenomAdoptant.Text = animal.Adoptant.Prenom;
+                    txtTelephoneAdoptant.Text = animal.Adoptant.Telephone;
+                    txtCourrielAdoptant.Text = animal.Adoptant.Courriel;
+                    txtDateAdoption.Text = animal.DateAdoption.ToString();
+                }
+                if(animal != null)
+                {
+                    btnAdopter.IsEnabled = (animal.Adoptant == null);
+
+                }
+                else
+                {
+                    btnAdopter.IsEnabled = false;
+                }
+
+            }
+        }
+
+        private void btnAdopter_Click(object sender, RoutedEventArgs e)
+        {
+            Animal animalAdopter = (Animal)lstAnimaux.SelectedItem;
+            Adoptant nouvelAdoptant = new Adoptant(1, txtNomAdoptant.Text, txtPrenomAdoptant.Text, txtTelephoneAdoptant.Text, txtCourrielAdoptant.Text);
+            bool adoptionReussi = _gestionAdoption.AdopterAnimal(animalAdopter.Id, 1);
+            if(adoptionReussi)
+            {
+                MessageBox.Show($"{animalAdopter.Nom} a été adopté");
+            }
+        }
+    }    
 }
